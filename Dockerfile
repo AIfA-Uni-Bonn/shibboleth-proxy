@@ -52,7 +52,7 @@ COPY etc/supervisor /etc/supervisor
 
 EXPOSE 80 443
 
-COPY etc/shibboleth/ /etc/shibboleth/
+#COPY etc/shibboleth/ /etc/shibboleth/
 COPY etc/nginx/nginx.conf /etc/nginx/
 COPY etc/nginx/proxy_params /etc/nginx/
 COPY etc/nginx/shib_clear_headers /etc/nginx/
