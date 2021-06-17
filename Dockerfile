@@ -52,18 +52,23 @@ COPY etc/supervisor /etc/supervisor
 
 EXPOSE 80 443
 
+#COPY scripts scripts
 #COPY etc/shibboleth/ /etc/shibboleth/
 COPY etc/nginx/nginx.conf /etc/nginx/
 COPY etc/nginx/proxy_params /etc/nginx/
 COPY etc/nginx/shib_clear_headers /etc/nginx/
 COPY etc/nginx/shib_fastcgi_params /etc/nginx/
 RUN mkdir etc/nginx/templates
+RUN rm etc/nginx/conf.d/default.conf
 COPY etc/nginx/default.conf /etc/nginx/templates/default.conf.template
 
 # Shibboleth folders
 RUN mkdir -p /run/shibboleth/ /var/log/shibboleth/ && \
     chown -R _shibd:_shibd /run/shibboleth/ /var/log/shibboleth/
 
-# CMD ["nginx", "-g", "daemon off;"]
+# use the old entry-point structure from nginx
+ENTRYPOINT ["/docker-entrypoint.sh"]
+
+# delegate to supervisor ...
 # start supervisord after all volumes are mounted => run command in compose file
 CMD ["/usr/bin/supervisord", "--nodaemon", "--configuration", "/etc/supervisor/supervisord.conf"]
