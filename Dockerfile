@@ -57,7 +57,8 @@ COPY etc/nginx/nginx.conf /etc/nginx/
 COPY etc/nginx/proxy_params /etc/nginx/
 COPY etc/nginx/shib_clear_headers /etc/nginx/
 COPY etc/nginx/shib_fastcgi_params /etc/nginx/
-COPY etc/nginx/default.conf /etc/nginx/conf.d
+RUN mkdir etc/nginx/templates
+COPY etc/nginx/default.conf /etc/nginx/templates/default.conf.template
 
 # Shibboleth folders
 RUN mkdir -p /run/shibboleth/ /var/log/shibboleth/ && \
