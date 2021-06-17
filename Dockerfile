@@ -61,6 +61,8 @@ COPY etc/nginx/shib_fastcgi_params /etc/nginx/
 RUN mkdir etc/nginx/templates
 RUN rm etc/nginx/conf.d/default.conf
 COPY etc/nginx/default.conf /etc/nginx/templates/default.conf.template
+COPY docker-entrypoint.sh docker-entrypoint.sh
+RUN chmod 755 docker-entrypoint.sh
 
 # Shibboleth folders
 RUN mkdir -p /run/shibboleth/ /var/log/shibboleth/ && \
